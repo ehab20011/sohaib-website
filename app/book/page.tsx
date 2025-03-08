@@ -189,14 +189,14 @@ export default function BookPage() {
               <motion.button
                 type="submit"
                 disabled={isSubmitting}
-                className={`relative w-full group bg-transparent border border-white/20 backdrop-blur-sm px-8 py-4 rounded-lg overflow-hidden ${
+                className={`relative w-full group bg-black/40 border border-white/20 backdrop-blur-sm px-8 py-4 rounded-lg overflow-hidden ${
                   isSubmitting ? 'opacity-50 cursor-not-allowed' : 'hover:border-white/40'
                 }`}
                 whileHover={{ scale: 1.01 }}
                 whileTap={{ scale: 0.98 }}
               >
                 {/* Animated background gradient */}
-                <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 via-blue-500/20 to-teal-500/20 group-hover:opacity-100 opacity-0 transition-opacity duration-500" />
+                <div className="absolute inset-0 bg-gradient-to-r from-orange-500/20 via-orange-400/20 to-orange-500/20 group-hover:opacity-100 opacity-0 transition-opacity duration-500" />
                 
                 {/* Animated shine effect */}
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
@@ -210,7 +210,7 @@ export default function BookPage() {
                   </span>
                   {!isSubmitting && (
                     <svg 
-                      className="w-5 h-5 transform group-hover:translate-x-1 transition-transform"
+                      className="w-5 h-5 transform group-hover:translate-x-1 transition-transform text-white"
                       fill="none" 
                       stroke="currentColor" 
                       viewBox="0 0 24 24"
@@ -226,10 +226,10 @@ export default function BookPage() {
                 </div>
 
                 {/* Corner accents */}
-                <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-white/40 group-hover:border-white/80 transition-colors" />
-                <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-white/40 group-hover:border-white/80 transition-colors" />
-                <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-white/40 group-hover:border-white/80 transition-colors" />
-                <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-white/40 group-hover:border-white/80 transition-colors" />
+                <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-orange-400/40 group-hover:border-orange-400/80 transition-colors" />
+                <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-orange-400/40 group-hover:border-orange-400/80 transition-colors" />
+                <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-orange-400/40 group-hover:border-orange-400/80 transition-colors" />
+                <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-orange-400/40 group-hover:border-orange-400/80 transition-colors" />
               </motion.button>
             </form>
           </div>
