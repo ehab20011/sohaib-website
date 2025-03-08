@@ -66,7 +66,7 @@ export default function Gallery() {
       >
         <h1 className="text-5xl md:text-6xl font-bold mb-6">Gallery</h1>
         <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-          Explore our diverse collection of photography across different genres
+          Explore my diverse collection of photography across different genres
         </p>
       </motion.div>
 

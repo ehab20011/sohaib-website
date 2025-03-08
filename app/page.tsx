@@ -2,14 +2,11 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
   const [isVisible, setIsVisible] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
 
-  const pathname = usePathname();
   const router = useRouter();
 
   // Fade in after short delay
@@ -19,46 +16,7 @@ export default function Home() {
     }, 50);
     return () => clearTimeout(timer);
   }, []);
-
-  // Close menu if user clicks outside (mobile menu)
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      const menu = document.getElementById("mobile-menu");
-      const menuButton = document.getElementById("menu-button");
-      if (
-        menu &&
-        !menu.contains(event.target as Node) &&
-        menuButton &&
-        !menuButton.contains(event.target as Node)
-      ) {
-        setMenuOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
-  // Close menu on route change
-  useEffect(() => {
-    setMenuOpen(false);
-  }, [pathname]);
-
-  const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
-  };
-
-  // Utility to highlight active link
-  const isActiveLink = (href: string) => {
-    return pathname === href;
-  };
-
-  const navLinks = [
-    { href: "/", label: "HOME" },
-    { href: "/gallery", label: "GALLERY" },
-    { href: "/book", label: "BOOK" },
-  ];
-
+  
   return (
     <main
       className={`relative w-full min-h-screen transition-opacity duration-1000 ease-out ${
@@ -67,7 +25,7 @@ export default function Home() {
     >
       {/* Full-screen background image */}
       <Image
-        src="/def.jpg" // Make sure this is in your public/ folder
+        src="/def1.jpg"
         alt="Sohaib Photography"
         fill
         className="object-cover object-center z-0"
@@ -77,111 +35,6 @@ export default function Home() {
       {/* Dark overlay for better text visibility */}
       <div className="absolute inset-0 bg-black opacity-40 z-10"></div>
 
-      {/* Navigation bar (z-30 to ensure on top) */}
-      <header className="relative z-30 w-full px-6 md:px-12 py-6">
-        <div className="flex justify-between items-center">
-          {/* Logo (clickable) */}
-          <div
-            className="text-white cursor-pointer"
-            onClick={() => router.push("/")}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="40"
-              height="40"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <rect x="2" y="6" width="20" height="12" rx="2" />
-              <circle cx="12" cy="12" r="4" />
-              <line x1="11" y1="4" x2="13" y2="4" />
-            </svg>
-          </div>
-
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={`text-white font-medium transition relative group cursor-pointer ${
-                  isActiveLink(link.href) ? "text-orange-400" : "hover:text-orange-400"
-                }`}
-              >
-                {link.label}
-                {/* Underline animation */}
-                <span
-                  className={`absolute bottom-0 left-0 w-full h-0.5 bg-orange-400 transform scale-x-0 transition-transform group-hover:scale-x-100 ${
-                    isActiveLink(link.href) ? "scale-x-100" : ""
-                  }`}
-                />
-              </Link>
-            ))}
-          </nav>
-
-          {/* Right side icons */}
-          <div className="flex items-center space-x-4">
-            {/* Mobile Menu Toggle */}
-            <button
-              id="menu-button"
-              className="text-white md:hidden hover:text-orange-400 transition cursor-pointer"
-              onClick={toggleMenu}
-              aria-label="Toggle menu"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                {menuOpen ? (
-                  <g>
-                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                    <line x1="6" y1="6" x2="18" y2="18"></line>
-                  </g>
-                ) : (
-                  <g>
-                    <line x1="3" y1="12" x2="21" y2="12"></line>
-                    <line x1="3" y1="6" x2="21" y2="6"></line>
-                    <line x1="3" y1="18" x2="21" y2="18"></line>
-                  </g>
-                )}
-              </svg>
-            </button>
-          </div>
-        </div>
-
-        {/* Mobile Menu */}
-        {menuOpen && (
-          <div
-            id="mobile-menu"
-            className="md:hidden absolute top-20 left-0 right-0 bg-black bg-opacity-90 p-4 z-50 backdrop-blur-sm"
-          >
-            <nav className="flex flex-col space-y-4">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={`text-white font-medium py-2 transition-colors cursor-pointer ${
-                    isActiveLink(link.href) ? "text-orange-400" : "hover:text-orange-400"
-                  }`}
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </nav>
-          </div>
-        )}
-      </header>
 
       {/* Hero Section (z-20) */}
       <div className="relative z-20 flex flex-col items-center justify-center text-center px-4 h-screen">
@@ -191,7 +44,7 @@ export default function Home() {
         <p className="text-base md:text-xl text-gray-200 mb-10">
           What you have caught on film is captured forever.
         </p>
-        <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
+        <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 mb-8">
           <button
             onClick={() => router.push("/gallery")}
             className="relative group px-8 py-3 text-white font-medium transition-all duration-300 ease-in-out"
@@ -218,6 +71,23 @@ export default function Home() {
             <span className="absolute bottom-2 left-0 w-full h-0.5 bg-white transform scale-x-0 group-hover:scale-x-70 transition-transform duration-300 ease-out"></span>
           </button>
         </div>
+
+        {/* Instagram Button */}
+        <a
+          href="https://www.instagram.com/sohaib.gallery/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group flex items-center justify-center p-2 rounded-full border-2 border-white/30 hover:border-orange-400 transition-all duration-300"
+          aria-label="Follow me on Instagram"
+        >
+          <svg
+            className="w-6 h-6 text-white group-hover:text-orange-400 transition-colors duration-300"
+            fill="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+          </svg>
+        </a>
       </div>
     </main>
   );
